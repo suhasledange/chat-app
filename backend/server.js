@@ -3,6 +3,7 @@ import "dotenv/config"
 import cors from "cors"
 import http from "http"
 import dbConnect from './lib/db.js'
+import router from './routes/userRoutes.js'
 
 const app = express()
 const server = http.createServer(app)
@@ -15,7 +16,7 @@ app.use(cors())
 await dbConnect()
 
 app.use("/api/status",(req,res)=> res.send("Server is live"))
-
+app.use('/api/auth',router)
 
 server.listen(PORT,()=>{
     console.log("Server is running on port "+PORT)
